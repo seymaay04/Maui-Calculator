@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Calculator.Scientific"
+             Title="Scientific"
+             BackgroundColor="#F2F5F7">
+
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="25"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="Lt">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout> <!-- Ek grid ana gridin altında kalmaması için -->
+
+        <!-- Ana grid -->
+        <Grid x:Name="MainGrid"
+              RowDefinitions="auto,2*,*,*,*,*,*,*,*,*,*,*"
+              ColumnDefinitions="*,*,*,*,*"
+              Margin="5"
+              AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All">
+
+            <Label x:Name="History" Text="" HorizontalTextAlignment="End" FontSize="Large" Margin="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"/>
+            <Entry x:Name="Screen" Text="0" HorizontalTextAlignment="End" FontSize="48" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Keyboard="Numeric"/>
+
+            <Grid ColumnDefinitions="*,*" Grid.Row="2" Grid.ColumnSpan="2">
+                <Button Grid.Column="0" Text="DEG" Style="{StaticResource Lt}" Clicked="DegRad_Clicked"/>
+                <Button Grid.Column="1" Text="F-E" Style="{StaticResource Lt}"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*,*,*,*,*" Grid.Row="3" Grid.ColumnSpan="5">
+                <Button Grid.Column="0" Text="MC" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+                <Button Grid.Column="1" Text="MR" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+                <Button Grid.Column="2" Text="M+" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+                <Button Grid.Column="3" Text="M-" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+                <Button Grid.Column="4" Text="MS" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+                <Button Grid.Column="5" Text="Mv" Style="{StaticResource Lt}" Clicked="Memory_Clicked"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" Grid.Row="4" Grid.ColumnSpan="2">
+                <Button Grid.Column="0" Text="Trigonometri" Style="{StaticResource Lt}" Clicked="TrigFunction_Clicked"/>
+                <Button Grid.Column="1" Text="∫ İşlev" Style="{StaticResource Lt}"/>
+            </Grid>
+
+            <Button Grid.Row="5" Grid.Column="0" Text="2ⁿᵈ" Clicked="SecondFunction_Clicked"/>
+            <Button Grid.Row="5" Grid.Column="1" Text="π" Clicked="Constant_Clicked"/>
+            <Button Grid.Row="5" Grid.Column="2" Text="e" Clicked="Constant_Clicked"/>
+            <Button Grid.Row="5" Grid.Column="3" Text="C" Clicked="Clear_Clicked"/>
+            <Button Grid.Row="5" Grid.Column="4" Text="←" Clicked="BackSpaceClicked"/>
+
+            <Button Grid.Row="6" Grid.Column="0" Text="x²" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="6" Grid.Column="1" Text="1/x" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="6" Grid.Column="2" Text="|x|" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="6" Grid.Column="3" Text="exp" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="6" Grid.Column="4" Text="mod" Clicked="OperatorClicked"/>
+
+            <Button Grid.Row="7" Grid.Column="0" Text="²√x" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="7" Grid.Column="1" Text="(" Clicked="Parenthesis_Clicked"/>
+            <Button Grid.Row="7" Grid.Column="2" Text=")" Clicked="Parenthesis_Clicked"/>
+            <Button Grid.Row="7" Grid.Column="3" Text="n!" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="7" Grid.Column="4" Text="÷" Clicked="OperatorClicked"/>
+
+            <Button Grid.Row="8" Grid.Column="0" Text="^" Clicked="OperatorClicked"/>
+            <Button Grid.Row="8" Grid.Column="1" Text="7" Clicked="NumClicked"/>
+            <Button Grid.Row="8" Grid.Column="2" Text="8" Clicked="NumClicked"/>
+            <Button Grid.Row="8" Grid.Column="3" Text="9" Clicked="NumClicked"/>
+            <Button Grid.Row="8" Grid.Column="4" Text="×" Clicked="OperatorClicked"/>
+
+            <Button Grid.Row="9" Grid.Column="0" Text="10ˣ" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="9" Grid.Column="1" Text="4" Clicked="NumClicked"/>
+            <Button Grid.Row="9" Grid.Column="2" Text="5" Clicked="NumClicked"/>
+            <Button Grid.Row="9" Grid.Column="3" Text="6" Clicked="NumClicked"/>
+            <Button Grid.Row="9" Grid.Column="4" Text="−" Clicked="OperatorClicked"/>
+
+            <Button Grid.Row="10" Grid.Column="0" Text="log" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="10" Grid.Column="1" Text="1" Clicked="NumClicked"/>
+            <Button Grid.Row="10" Grid.Column="2" Text="2" Clicked="NumClicked"/>
+            <Button Grid.Row="10" Grid.Column="3" Text="3" Clicked="NumClicked"/>
+            <Button Grid.Row="10" Grid.Column="4" Text="+" Clicked="OperatorClicked"/>
+
+            <Button Grid.Row="11" Grid.Column="0" Text="ln" Clicked="UnaryOperator_Clicked"/>
+            <Button Grid.Row="11" Grid.Column="1" Text="+/−" Clicked="PlusMinus_Clicked"/>
+            <Button Grid.Row="11" Grid.Column="2" Text="0" Clicked="NumClicked"/>
+            <Button Grid.Row="11" Grid.Column="3" Text="," Clicked="Decimal_Clicked"/>
+            <Button Grid.Row="11" Grid.Column="4" Text="=" Clicked="EqualClicked" Background="#1B66A1" TextColor="White" FontSize="30"/>
+        </Grid>
+
+        <!-- Trigonometrik fonksiyonlar için ek grid -->
+        <Grid x:Name="TrigPanel" IsVisible="False"
+              AbsoluteLayout.LayoutBounds="0,0.58,1,0.2"
+              AbsoluteLayout.LayoutFlags="All"
+              BackgroundColor="#F2F5F7"
+              
+              RowDefinitions="*,*"
+              ColumnDefinitions="*,*,*,*">
+
+            <Button Grid.Row="0" Grid.Column="0" Text="2ⁿᵈ" Clicked="TrigOption_Clicked"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="sin" AutomationId="sin" Clicked="Trig_Clicked"/>
+            <Button Grid.Row="0" Grid.Column="2" Text="cos" AutomationId="cos" Clicked="Trig_Clicked"/>
+            <Button Grid.Row="0" Grid.Column="3" Text="tan" AutomationId="tan" Clicked="Trig_Clicked"/>
+            
+            <Button Grid.Row="1" Grid.Column="0" Text="hyp" Clicked="TrigOption_Clicked"/>
+            <Button Grid.Row="1" Grid.Column="1" Text="sec" AutomationId="sec" Clicked="Trig_Clicked"/>
+            <Button Grid.Row="1" Grid.Column="2" Text="csc" AutomationId="csc" Clicked="Trig_Clicked"/>
+            <Button Grid.Row="1" Grid.Column="3" Text="cot" AutomationId="cot" Clicked="Trig_Clicked"/>
+        </Grid>
+
+    </AbsoluteLayout>
+</ContentPage>
